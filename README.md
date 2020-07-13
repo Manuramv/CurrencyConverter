@@ -2,9 +2,29 @@
 This app helps to convert one form of currency into another forn of currency based on the current exchange rate.
 This app faciliates easy conversion of currencies and will be accurate as it updates the exchange rate every 10 seconds.
 
-#Technologies Used
-*Kotlin
-* MVVM Pattern - Th
-* Data Binding & 2 Way data Binding
-* Retrofit - For networking calls
-* RxJava - To 
+```sh
+During the development of this application I want to ensure that I'm using the latest techniques.
+```
+# Built With
+  Kotlin
+
+# Architectural Pattern
+I took a deap breath before start developing this applicastion because I have to complete this app within one or two days. So if I'm not following any architecture strictly I can finish this one very fast. But I don't ant to do a bad approach so I chose the MVVM pattern.
+
+  ## MVVM Pattern 
+    - Our currency converter app follows the MVVM pattern
+#  Data Binding & 2 Way data Binding
+    
+  
+
+# Important Libraries Used:
+    * Retrofit - For networking calls
+    * RxJava - To 
+ # Packages in the App:
+    *Adapters- Binding adapters and inverse binding adapters, Spinner Adapter.
+    *Data - Retrofit API related class and repository classes under sub repositroy project.
+    *Model - Model classes and kotlin data classes
+    *UI - Views and Viewmodels
+    *Utils - Date utils, Constants and Alert Classes.
+
+
