@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.JsonElement
 import com.viki.currency.repository.CurrencyRepository
 import com.viki.currency.utils.VikiConstants.Companion.API_REFETCH_INTERVAL
+import com.viki.currency.utils.VikiDateUtils
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.math.RoundingMode
@@ -39,6 +40,7 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
 
     //display the conversionrate
     var displayConversionRate  = MutableLiveData<String>()
+    var apiLastFetchedTime  = MutableLiveData<String>()
 
 
 
@@ -64,6 +66,7 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
     fun fetchApi()  {
         currencyRepository.getLatestCurrencyRate().subscribe({
             parseJson(it)
+            updateApiFetchTime()
         },{
             _errorLiveData.value = it.toString()
         })
@@ -126,6 +129,10 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
     //method to round off the currency value
     private fun roundOffDecimal(number: Double): Double {
         return number.toBigDecimal().setScale(3, RoundingMode.FLOOR).toDouble()
+    }
+
+    private fun updateApiFetchTime(){
+        apiLastFetchedTime.value = VikiDateUtils.getCurrentTime()
     }
 
     //clearing the fields when view model is destroyed.

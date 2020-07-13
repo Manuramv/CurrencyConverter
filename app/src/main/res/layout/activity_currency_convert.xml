@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:Android="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="viewmodel"
@@ -16,6 +15,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/cur">
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleLarge"
@@ -23,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginTop="8dp"/>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/convertLayout"
@@ -37,21 +36,29 @@
         android:layout_margin="@dimen/small_margin"
         android:background="@drawable/bg_rectangle">
 
-
      <androidx.appcompat.widget.AppCompatTextView
          android:id="@+id/txtConversionRate"
          android:layout_width="0dp"
          android:layout_height="wrap_content"
          android:text="@={viewmodel.displayConversionRate}"
          android:textColor="@color/colorBlack"
-
+         android:textSize="18dp"
+         android:textStyle="bold"
          app:layout_constraintTop_toTopOf="parent"
-         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintStart_toStartOf="parent" />
 
-         />
+      <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/lastApifetchedTime"
+          android:layout_width="0dp"
+          android:text="@={viewmodel.apiLastFetchedTime}"
+          android:textColor="@color/colorBlue"
+          android:textSize="12dp"
+          android:layout_height="wrap_content"
+          app:layout_constraintTop_toBottomOf="@+id/txtConversionRate"
+          app:layout_constraintStart_toStartOf="parent"
 
+          />
 
-    <!-- -->
     <EditText
         android:id="@+id/txtFromCurrecncy"
         android:layout_width="0dp"
@@ -73,21 +80,14 @@
         android:layout_margin="@dimen/small_margin"
         android:spinnerMode="dropdown"
         android:paddingStart="4dp"
-
-
         android:layout_marginBottom="@dimen/medium_margin"
         app:layout_constraintStart_toEndOf="@+id/guideline"
         android:layout_alignBaseline="@+id/txtFromCurrecncy"
         app:layout_constraintLeft_toRightOf="@id/txtFromCurrecncy"
-
-
         app:layout_constraintBottom_toBottomOf="@id/txtFromCurrecncy"
         app:layout_constraintStart_toStartOf="@id/guideline"
         app:layout_constraintTop_toTopOf="@id/txtFromCurrecncy"
-
-
         app:entries="@{viewmodel.curFromSpnrData}"
-
         android:selectedItemPosition="@={viewmodel.spinnerFromSelectedPosition}" />
 
 
@@ -101,9 +101,7 @@
         android:layout_margin="@dimen/views_margin"
         android:background="@drawable/et_rectangle"
         android:text="@={viewmodel.toCurrencyEdtLiveData}"
-
         app:layout_constraintEnd_toStartOf="@+id/guideline"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtFromCurrecncy" />
 
@@ -119,19 +117,13 @@
         android:layout_marginTop="@dimen/views_margin"
         app:layout_constraintBottom_toBottomOf="@id/txtToCurrecncy"
         app:layout_constraintTop_toTopOf="@+id/txtToCurrecncy"
-
-
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginBottom="@dimen/medium_margin"
         app:layout_constraintStart_toEndOf="@+id/guideline"
         android:layout_alignBaseline="@+id/txtToCurrecncy"
-
-
         app:entries="@{viewmodel.curToSpnrData}"
-
         android:selectedItemPosition="@={viewmodel.spinnerToSelectedPosition}" />
-    <!--app:newValue="@{viewmodel.spnrToCurSelectedData}"-->
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -141,9 +133,5 @@
         app:layout_constraintGuide_percent="0.6"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
 </RelativeLayout>
 </layout>
