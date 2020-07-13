@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:Android="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.viki.currency.ui.currency.CurrencyConvertViewModel" />
+        <variable name="converters" type="com.viki.currency.edittxt.CustomBinderFinal"/>
+
+        <import type="com.viki.currency.edittxt.Converter"/>
+        <import type="com.viki.currency.edittxt.TxtBindingUtil"/>
+        <import type="com.viki.currency.edittxt.CustomBinderFinal"/>
+
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/cur"
+
+    >
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="@dimen/views_margin"
+        android:layout_margin="@dimen/small_margin"
+        android:background="@drawable/bg_rectangle">
+
+    <!-- -->
+    <EditText
+        android:id="@+id/txtFromCurrecncy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/txt_enter_value"
+        android:background="@drawable/et_rectangle"
+        android:inputType="numberDecimal"
+        android:layout_margin="@dimen/views_margin"
+        android:text="@={viewmodel.fromCurrencyEdtLiveData}"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spnrFromCurrecncy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_margin"
+        android:spinnerMode="dropdown"
+        android:paddingStart="4dp"
+
+
+        android:layout_marginBottom="@dimen/medium_margin"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
+        android:layout_alignBaseline="@+id/txtFromCurrecncy"
+        app:layout_constraintLeft_toRightOf="@id/txtFromCurrecncy"
+
+
+        app:layout_constraintBottom_toBottomOf="@id/txtFromCurrecncy"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/txtFromCurrecncy"
+
+
+        app:entries="@{viewmodel.curFromSpnrData}"
+
+        android:selectedItemPosition="@={viewmodel.spinnerFromSelectedPosition}" />
+
+
+    <EditText
+        android:id="@+id/txtToCurrecncy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:hint="@string/txt_enter_value"
+        android:layout_marginTop="@dimen/views_margin"
+        android:layout_margin="@dimen/views_margin"
+        android:background="@drawable/et_rectangle"
+        android:text="@={viewmodel.toCurrencyEdtLiveData}"
+
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtFromCurrecncy" />
+
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spnrToCurrecncy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_margin"
+        android:spinnerMode="dropdown"
+        android:paddingStart="4dp"
+        android:textSize="16sp"
+        android:layout_marginTop="@dimen/views_margin"
+        app:layout_constraintBottom_toBottomOf="@id/txtToCurrecncy"
+        app:layout_constraintTop_toTopOf="@+id/txtToCurrecncy"
+
+
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="@dimen/medium_margin"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
+        android:layout_alignBaseline="@+id/txtToCurrecncy"
+
+
+        app:entries="@{viewmodel.curToSpnrData}"
+
+        android:selectedItemPosition="@={viewmodel.spinnerToSelectedPosition}" />
+    <!--app:newValue="@{viewmodel.spnrToCurSelectedData}"-->
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
