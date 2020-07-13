@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonElement
 import com.viki.currency.models.CurrencyData
-import com.viki.currency.repository.CurrencyRepository
+import com.viki.currency.data.repository.CurrencyRepository
 import com.viki.currency.utils.VikiConstants.Companion.API_REFETCH_INTERVAL
 import com.viki.currency.utils.VikiDateUtils
 import io.reactivex.rxjava3.core.Observable

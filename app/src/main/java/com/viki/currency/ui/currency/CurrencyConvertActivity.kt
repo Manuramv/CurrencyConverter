@@ -1,7 +1,6 @@
 package com.viki.currency.ui.currency
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -9,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.viki.currency.R
 import com.viki.currency.databinding.ActivityCurrencyConvertBinding
-import com.viki.currency.repository.RepositoryFactory
+import com.viki.currency.data.repository.RepositoryFactory
 import com.viki.currency.utils.VikiSnackBar
 
 

@@ -1,4 +1,4 @@
-package com.viki.currency.repository
+package com.viki.currency.data.repository
 
 import com.viki.currency.data.api.ApiInterface
 import com.viki.currency.data.api.RetrofitApiClient

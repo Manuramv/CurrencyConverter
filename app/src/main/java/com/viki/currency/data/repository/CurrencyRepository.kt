@@ -1,4 +1,4 @@
-package com.viki.currency.repository
+package com.viki.currency.data.repository
 
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonElement
