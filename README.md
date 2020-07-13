@@ -14,6 +14,8 @@ I took a deap breath before start developing this applicastion because I have to
   ## MVVM Pattern 
     - Our currency converter app follows the MVVM pattern
 #  Data Binding & 2 Way data Binding
+- We've followed the data bindign approach to bind the views with classes and view models. So that I can perform the UI actions with less code and directly from viewmodel.We have extensively used data binding in this appliation wherever it's possible. 
+- I also used the 2 way binding for the Edittexts and Spinners even though it was quite difficult. 
     
   
 
@@ -26,5 +28,8 @@ I took a deap breath before start developing this applicastion because I have to
     *Model - Model classes and kotlin data classes
     *UI - Views and Viewmodels
     *Utils - Date utils, Constants and Alert Classes.
+    
+#Supported version
+Android 19
 
 
