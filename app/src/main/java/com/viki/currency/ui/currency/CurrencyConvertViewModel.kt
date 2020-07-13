@@ -1,26 +1,18 @@
 package com.viki.currency.ui.currency
 
 import android.os.Looper
-import android.text.TextUtils
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-
 import com.viki.currency.repository.CurrencyRepository
-import com.viki.currency.repository.data.CurrencyApiResult
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
-
 
 
 val TAG = CurrencyConvertViewModel::class.java.canonicalName
@@ -34,6 +26,7 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
 
     val spinnerFromSelectedPosition : MutableLiveData<Int> // This gets updated once spinner item selection changes
     val spinnerToSelectedPosition : MutableLiveData<Int> // This gets updated once spinner item selection changes
+    var progress = MutableLiveData<Int>()
 
 
 
@@ -67,6 +60,7 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
 
 //call this API and set the data to dropdown
     fun callMeInEvery10s(){
+        progress.value = 0
         Observable.interval(0,10000, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.io())
             .subscribe({
@@ -88,26 +82,22 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
 ///parsing the json and addding the elements to mutablelivedata
     fun parseJson(rates: JsonElement) {
         try{
-            val jsonObject: JsonObject = rates.getAsJsonObject()
-            val rateObj = jsonObject.get("rates").asJsonObject
+            val rateObj = rates.getAsJsonObject().get("rates").asJsonObject
             curDataFromApi?.clear()
             rateObj.keySet().forEach({
                 Log.d("TAG","key =====" + it+"...value="+rateObj.get(it))
                 curDataFromApi?.add(CurrencyData(it,rateObj.get(it)))
             })
-
-            for ( key in rateObj.keySet()) {
-               // curDataFromApi?.add(CurrencyData(key,rateObj.get(key)))
-            }
             curFromSpnrData.value = curDataFromApi
             curToSpnrData.value = curDataFromApi
 
+            //this section we can imporve a bit. currently I'm resetting the spinner livedata everytime without comparing
+            //if the update is needed or not.SO I'm just assigning previously selected value again to spinners
             spinnerFromSelectedPosition.value = spinnerFromSelectedPosition.value
             spinnerToSelectedPosition.value = spinnerToSelectedPosition.value
-
-
         } catch (e:Exception){
-            Log.d("TAG","Exception in json==" + e)
+            _errorLiveData.value = e.toString()
+            Log.d("TAG","Exception while parsing api response" + e)
         }
 
     }

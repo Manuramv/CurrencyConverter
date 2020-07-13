@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.viki.currency.R
 import com.viki.currency.databinding.ActivityCurrencyConvertBinding
 import com.viki.currency.repository.RepositoryFactory
-import com.viki.currency.utils.BaseSnackBar
+import com.viki.currency.utils.VikiSnackBar
 
 
 class CurrencyConvertActivity : AppCompatActivity() {
@@ -71,7 +71,7 @@ class CurrencyConvertActivity : AppCompatActivity() {
         })
 
         currencyConvertViewModel.errorLiveData.observe(this, Observer { it ->
-            BaseSnackBar.showErrorMsg(binding.parentLayout,it)
+            VikiSnackBar.showErrorMsg(binding.parentLayout,it)
         })
 
 
