@@ -25,6 +25,6 @@ fun generateImgUrl(imgCountryCode:String?):String{
 
 @BindingAdapter("text")
 fun setText(view: AppCompatTextView, name: String?) {
-    view.setText(name+"test")
+    view.setText(name)
 }
 

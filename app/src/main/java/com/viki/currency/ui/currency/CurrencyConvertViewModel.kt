@@ -1,6 +1,5 @@
 package com.viki.currency.ui.currency
 
-import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +11,6 @@ import com.viki.currency.utils.VikiDateUtils
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.math.RoundingMode
-import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
 
 

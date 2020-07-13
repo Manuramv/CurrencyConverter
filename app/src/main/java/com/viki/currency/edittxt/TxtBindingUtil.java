@@ -25,18 +25,21 @@ public class TxtBindingUtil {
         }
     }
 
+
+    /// when the from field is empty - tocurrency field is not changing so to reflect that we are setting the NAN double
+    //and checking in this binder
     @InverseBindingAdapter(attribute = "android:text")
     public static Double getDouble(TextView view) {
         try {
             if(view.getText().toString().equals("NaN")){
-                view.setHint("Enter Number");
+                view.setHint("Enter Value");
                 view.setText("");
                 return null;
             } else {
                 return Double.parseDouble(view.getText().toString());
             }
         } catch (NumberFormatException e) {
-            view.setHint("Enter Number");
+            view.setHint("Enter Value");
             return null;
         }
     }

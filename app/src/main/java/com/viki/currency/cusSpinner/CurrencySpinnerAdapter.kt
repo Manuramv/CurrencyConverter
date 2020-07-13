@@ -15,7 +15,7 @@ import com.viki.currency.databinding.CountryCustomSpinnerBinding
 import com.viki.currency.ui.currency.CurrencyData
 import kotlinx.android.synthetic.main.country_custom_spinner.view.*
 
-
+//adapter to show the currency spinner
 class CurrencySpinnerAdapter(context: Context, resource: Int, private val values: List<CurrencyData>) :
     ArrayAdapter<CurrencyData>(context, resource, values) {
 
