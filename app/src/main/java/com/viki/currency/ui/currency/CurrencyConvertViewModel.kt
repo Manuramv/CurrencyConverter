@@ -5,6 +5,7 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.JsonElement
@@ -16,23 +17,20 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
 
 
 
-
+val TAG = CurrencyConvertViewModel::class.java.canonicalName
 class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewModel() {
-    val TAG = CurrencyConvertViewModel::class.java.canonicalName
     var fromCurrencyEdtLiveData = MutableLiveData<Double>()
     var toCurrencyEdtLiveData = MutableLiveData<Double>()
     private var curDataFromApi : MutableList<CurrencyData>
 
     var curFromSpnrData  : MutableLiveData<MutableList<CurrencyData>>
     var curToSpnrData  :MutableLiveData<MutableList<CurrencyData>>
-
-
-    var spnrFromCurSelectedData: MutableLiveData<CurrencyData> = MutableLiveData()
-    var spnrToCurSelectedData: MutableLiveData<CurrencyData> = MutableLiveData()
 
     val spinnerFromSelectedPosition : MutableLiveData<Int> // This gets updated once spinner item selection changes
     val spinnerToSelectedPosition : MutableLiveData<Int> // This gets updated once spinner item selection changes
@@ -90,7 +88,6 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
 ///parsing the json and addding the elements to mutablelivedata
     fun parseJson(rates: JsonElement) {
         try{
-            val gson = Gson()
             val jsonObject: JsonObject = rates.getAsJsonObject()
             val rateObj = jsonObject.get("rates").asJsonObject
             curDataFromApi?.clear()
@@ -120,46 +117,40 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
 
 
 
-    fun testCurrencyCalculate() {
-
+    //Calculate the curency value - whenever the changes is happening on either of the dropdown or
+    // From edit text field
+    fun calCurrencyValue() {
         val fromSpinnerSelectedItem = curDataFromApi.get(spinnerFromSelectedPosition.value ?:0).value
         val toSpinnerSelectedItem = curDataFromApi.get(spinnerToSelectedPosition.value ?: 0).value
+
+        //special case- forcefully setting to the to field as "NAN" to make sure that when the from filed is empty it is
+        //clearing the value in to field as well
         if(fromCurrencyEdtLiveData?.value == null) {
             toCurrencyEdtLiveData.postValue(Double.NaN)
-            Log.d(TAG,"setting tovalue to null::")
         }
-        Log.d(TAG,"setting tovalue fromCurrencyEdtLiveData to null::"+fromCurrencyEdtLiveData?.value)
 
-
-        val fromFieldValue = fromCurrencyEdtLiveData.value
-
-        fromCurrencyEdtLiveData?.value?.let {
-            Log.d(TAG,"Onselcting from dropdown..fromspnr="+fromSpinnerSelectedItem+"..tospnr== "+toSpinnerSelectedItem+"..fromEdittextvalue=="+fromFieldValue+"..toCurrencyLiveData="+toCurrencyEdtLiveData.value)
-
-            val  calculateSum = (fromCurrencyEdtLiveData.value?.times(fromSpinnerSelectedItem.toString().toDouble()))?.plus(toSpinnerSelectedItem.toString().toDouble())
-
-            val currencyDiff = toSpinnerSelectedItem.toString().toDouble().div(fromSpinnerSelectedItem.toString().toDouble())
-
-            val finalSum = fromFieldValue?.times(currencyDiff)
-
+            var currencyDiff = toSpinnerSelectedItem.toString().toDouble().div(fromSpinnerSelectedItem.toString().toDouble())
+            currencyDiff = roundOffDecimal(currencyDiff)
+            val finalSum = fromCurrencyEdtLiveData.value?.times(currencyDiff)
+            //update the value - To field
             toCurrencyEdtLiveData.value = finalSum
-        }
 
-
-
-        displayConversionRate.value = "1 " +  curDataFromApi.get(spinnerFromSelectedPosition.value ?:0).name +" equals "+
-                curDataFromApi.get(spinnerToSelectedPosition.value ?: 0).value +" " +curDataFromApi.get(spinnerToSelectedPosition.value ?: 0).name
+            //update the currency unit price field to notice the user based on the dropdown selection
+            displayConversionRate.value = "1 " +  curDataFromApi.get(spinnerFromSelectedPosition.value ?:0).name +" equals "+
+                    currencyDiff +" " +curDataFromApi.get(spinnerToSelectedPosition.value ?: 0).name
 
 
     }
 
 
-    fun displayRate(){
-
+    //method to round off the currency value
+    private fun roundOffDecimal(number: Double): Double {
+        val df = DecimalFormat("#.###")
+        df.roundingMode = RoundingMode.FLOOR
+        return df.format(number).toDouble()
     }
 
-
-
+    //clearing the fields when view model is destroyed.
     override fun onCleared() {
         super.onCleared()
     }

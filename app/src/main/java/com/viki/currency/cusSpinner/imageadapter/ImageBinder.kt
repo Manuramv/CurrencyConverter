@@ -6,7 +6,6 @@ import android.widget.Spinner
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
 import com.viki.currency.R
 import kotlinx.android.synthetic.main.country_custom_spinner.view.*
 

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
+
 import com.viki.currency.R
 import com.viki.currency.cusSpinner.imageadapter.generateImgUrl
 import com.viki.currency.databinding.CountryCustomSpinnerBinding

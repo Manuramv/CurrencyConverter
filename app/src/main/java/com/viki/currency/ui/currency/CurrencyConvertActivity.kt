@@ -1,18 +1,16 @@
 package com.viki.currency.ui.currency
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.AdapterView
-import android.widget.Spinner
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.InverseBindingListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.viki.currency.R
 import com.viki.currency.databinding.ActivityCurrencyConvertBinding
 import com.viki.currency.repository.RepositoryFactory
+import com.viki.currency.utils.BaseSnackBar
+
 
 class CurrencyConvertActivity : AppCompatActivity() {
     private lateinit var currencyConvertViewModel : CurrencyConvertViewModel
@@ -38,6 +36,7 @@ class CurrencyConvertActivity : AppCompatActivity() {
         binding.viewmodel = currencyConvertViewModel
         currencyConvertViewModel.callMeInEvery10s()
 
+
         fun setSpinner(){
            // binding.spnrToCurrecncy.adapter
         }
@@ -52,7 +51,7 @@ class CurrencyConvertActivity : AppCompatActivity() {
         currencyConvertViewModel.fromCurrencyEdtLiveData.observe(this, Observer { it ->
             Log.d("tag","fromCurrencyLiveData value::"+it)
             //currencyConvertViewModel.calulateToCurrency()
-            currencyConvertViewModel.testCurrencyCalculate()
+            currencyConvertViewModel.calCurrencyValue()
         })
         currencyConvertViewModel.toCurrencyEdtLiveData.observe(this, Observer { it ->
             Log.d("tag","toCurrencyLiveData value::"+it)
@@ -63,17 +62,16 @@ class CurrencyConvertActivity : AppCompatActivity() {
 
         currencyConvertViewModel.spinnerFromSelectedPosition.observe(this, Observer { it ->
             Log.d("tag","selectedSpinner FROM selected position*********t::"+it)
-            currencyConvertViewModel.testCurrencyCalculate()
+            currencyConvertViewModel.calCurrencyValue()
         })
 
         currencyConvertViewModel.spinnerToSelectedPosition.observe(this, Observer { it ->
             Log.d("tag","selectedSpinner TO selected position*********t::"+it)
-            currencyConvertViewModel.testCurrencyCalculate()
+            currencyConvertViewModel.calCurrencyValue()
         })
 
         currencyConvertViewModel.errorLiveData.observe(this, Observer { it ->
-            Log.d("tag","selectedSpinner TO selected position*********t::"+it)
-            currencyConvertViewModel.testCurrencyCalculate()
+            BaseSnackBar.showErrorMsg(binding.parentLayout,it)
         })
 
 
@@ -83,23 +81,6 @@ class CurrencyConvertActivity : AppCompatActivity() {
 
 
 
-    }
-
-    private fun setSpinnerListener(spinner: Spinner, listener: InverseBindingListener) {
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) = listener.onChange()
-            override fun onNothingSelected(adapterView: AdapterView<*>) = listener.onChange()
-        }
-    }
-
-    private fun setCurrentSelection(spinner: Spinner, selectedItem: CurrencyData): Boolean {
-        for (index in 0 until spinner.adapter.count) {
-            if (spinner.getItemAtPosition(index) == selectedItem.name) {
-                spinner.setSelection(index)
-                return true
-            }
-        }
-        return false
     }
 }
 
