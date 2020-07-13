@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonElement
 import com.viki.currency.repository.CurrencyRepository
+import com.viki.currency.utils.VikiConstants.Companion.API_REFETCH_INTERVAL
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.math.RoundingMode
@@ -53,13 +54,10 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
 //call this API and set the data to dropdown
     fun callMeInEvery10s(){
         _isLoading.value = true
-    fetchApi()
-        Observable.interval(0,10000, TimeUnit.MILLISECONDS)
+        Observable.interval(0,API_REFETCH_INTERVAL, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.io())
             .subscribe({
-                fetchApi()
-                Log.d(TAG,"current thread::"+ Looper.getMainLooper().isCurrentThread())
-
+                fetchApi() //this will call the currency api in every 10s
             });
     }
 
@@ -73,7 +71,7 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
 
 
 ///parsing the json and addding the elements to mutablelivedata
-    fun parseJson(rates: JsonElement) {
+    private fun parseJson(rates: JsonElement) {
         try{
             val rateObj = rates.getAsJsonObject().get("rates").asJsonObject
             curDataFromApi?.clear()
@@ -91,9 +89,7 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
             _isLoading.value = false
         } catch (e:Exception){
             _errorLiveData.value = e.toString()
-            Log.d("TAG","Exception while parsing api response" + e)
         }
-
     }
 
 
@@ -129,9 +125,7 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
 
     //method to round off the currency value
     private fun roundOffDecimal(number: Double): Double {
-        val df = DecimalFormat("#.###")
-        df.roundingMode = RoundingMode.FLOOR
-        return df.format(number).toDouble()
+        return number.toBigDecimal().setScale(3, RoundingMode.FLOOR).toDouble()
     }
 
     //clearing the fields when view model is destroyed.
