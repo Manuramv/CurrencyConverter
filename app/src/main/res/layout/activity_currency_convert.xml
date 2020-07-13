@@ -6,11 +6,9 @@
         <variable
             name="viewmodel"
             type="com.viki.currency.ui.currency.CurrencyConvertViewModel" />
-        <variable name="converters" type="com.viki.currency.edittxt.CustomBinderFinal"/>
 
-        <import type="com.viki.currency.edittxt.Converter"/>
         <import type="com.viki.currency.edittxt.TxtBindingUtil"/>
-        <import type="com.viki.currency.edittxt.CustomBinderFinal"/>
+
 
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,6 +27,19 @@
         android:padding="@dimen/views_margin"
         android:layout_margin="@dimen/small_margin"
         android:background="@drawable/bg_rectangle">
+
+     <androidx.appcompat.widget.AppCompatTextView
+         android:id="@+id/txtConversionRate"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:text="@={viewmodel.displayConversionRate}"
+         android:textColor="@color/colorBlack"
+
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+
+         />
+
 
     <!-- -->
     <EditText
