@@ -1,4 +1,4 @@
-package com.viki.currency.edittxt;
+package com.viki.currency.adapters;
 
 import android.util.Log;
 import android.widget.TextView;

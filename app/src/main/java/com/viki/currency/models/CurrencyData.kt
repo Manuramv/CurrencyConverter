@@ -1,4 +1,4 @@
-package com.viki.currency.ui.currency
+package com.viki.currency.models
 
 
 data class CurrencyData (

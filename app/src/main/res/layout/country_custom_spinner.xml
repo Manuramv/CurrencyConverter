@@ -5,11 +5,11 @@
     <data>
         <variable
             name="adapter"
-            type="com.viki.currency.cusSpinner.CurrencySpinnerAdapter" />
+            type="com.viki.currency.adapters.CurrencySpinnerAdapter" />
         <variable
             name="adapterdata"
-            type="com.viki.currency.ui.currency.CurrencyData" />
-        <import type="com.viki.currency.cusSpinner.imageadapter.ImageBinderKt"/>
+            type="com.viki.currency.models.CurrencyData" />
+        <import type="com.viki.currency.adapters.ImageBinderKt"/>
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout

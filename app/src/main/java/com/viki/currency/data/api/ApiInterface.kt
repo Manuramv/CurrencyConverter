@@ -1,7 +1,6 @@
-package com.viki.currency.repository.api
+package com.viki.currency.data.api
 
 import com.google.gson.JsonElement
-import com.viki.currency.models.CurrencyRateResponse
 import io.reactivex.rxjava3.core.Flowable
 import retrofit2.http.GET
 

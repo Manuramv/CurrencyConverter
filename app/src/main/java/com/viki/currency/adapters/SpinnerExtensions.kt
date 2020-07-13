@@ -1,4 +1,4 @@
-package com.viki.currency.cusSpinner
+package com.viki.currency.adapters
 
 
 import android.view.View
@@ -7,12 +7,8 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.databinding.InverseBindingListener
 import com.viki.currency.R
-import com.viki.currency.ui.currency.CurrencyData
+import com.viki.currency.models.CurrencyData
 
-/**
- * Copyright (c) 2017 Fueled. All rights reserved.
- * @author chetansachdeva on 10/04/18
- */
 object SpinnerExtensions {
 
     /**

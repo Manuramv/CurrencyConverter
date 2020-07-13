@@ -1,4 +1,4 @@
-package com.viki.currency.repository
+package com.viki.currency.data.api
 
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.*

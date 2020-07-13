@@ -18,7 +18,6 @@ class CurrencyConvertActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_currency_convert)
         val binding: ActivityCurrencyConvertBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_currency_convert)
 
@@ -27,67 +26,39 @@ class CurrencyConvertActivity : AppCompatActivity() {
             ViewModelFactory(RepositoryFactory.createCurrecncyRepository())
         ).get(CurrencyConvertViewModel::class.java)
 
-        /*binding.let {
-            it.viewmodel = currencyConvertViewModel
-            it.setLifecycleOwner(this)
-            // it.spinAdapter = CountrySpinnerAdapter(this)
-        }*/
         binding.lifecycleOwner = this
-
         binding.viewmodel = currencyConvertViewModel
+
+        //Trigger the API call -- viewmodel will take care of triggering the api call in every 10s
         currencyConvertViewModel.callMeInEvery10s()
 
-
-        fun setSpinner(){
-           // binding.spnrToCurrecncy.adapter
-        }
-
-        //binding.viewmodel = currencyConvertViewModel
-        /* btnClick.setOnClickListener({
-            //ServiceBuilder.retrofitBuilder().getLatestRate()
-           currencyConvertViewModel.fetchApi()
-        })*/
-
-
+        //observe for the from text changes and calculate the currency value
         currencyConvertViewModel.fromCurrencyEdtLiveData.observe(this, Observer { it ->
-            Log.d("tag","fromCurrencyLiveData value::"+it)
-            //currencyConvertViewModel.calulateToCurrency()
             currencyConvertViewModel.calCurrencyValue()
         })
-        currencyConvertViewModel.toCurrencyEdtLiveData.observe(this, Observer { it ->
-            Log.d("tag","toCurrencyLiveData value::"+it)
-           // currencyConvertViewModel.calulateFromCurrency()
-            //currencyConvertViewModel.testCurrencyCalculate()
-        })
 
-
+        //observe for the from spinner and calculate the currency value
         currencyConvertViewModel.spinnerFromSelectedPosition.observe(this, Observer { it ->
-            Log.d("tag","selectedSpinner FROM selected position*********t::"+it)
             currencyConvertViewModel.calCurrencyValue()
         })
 
+        //observe for the To spinner and calculate the currency value
         currencyConvertViewModel.spinnerToSelectedPosition.observe(this, Observer { it ->
-            Log.d("tag","selectedSpinner TO selected position*********t::"+it)
             currencyConvertViewModel.calCurrencyValue()
         })
 
+        //observe if there is any error such as network or json parsing show to the customer
         currencyConvertViewModel.errorLiveData.observe(this, Observer { it ->
             VikiSnackBar.showErrorMsg(binding.parentLayout,it)
         })
 
+        //once if the data is loaded successfully show the currency converter section to the user
         currencyConvertViewModel.isLoading.observe(this, Observer { it ->
             if(!it){
                 binding.progressBar.visibility = View.INVISIBLE
                 binding.convertLayout.visibility = View.VISIBLE
             }
         })
-
-
-
-
-
-
-
 
     }
 }

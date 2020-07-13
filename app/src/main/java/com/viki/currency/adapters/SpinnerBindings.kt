@@ -1,16 +1,15 @@
-package com.viki.currency.cusSpinner
+package com.viki.currency.adapters
 
 import android.widget.Spinner
 import androidx.databinding.BindingAdapter
 
-import com.viki.currency.cusSpinner.SpinnerExtensions.setSpinnerEntries
-import com.viki.currency.cusSpinner.SpinnerExtensions.setSpinnerItemSelectedListener
-import com.viki.currency.cusSpinner.SpinnerExtensions.setSpinnerValue
-import com.viki.currency.ui.currency.CurrencyData
+import com.viki.currency.adapters.SpinnerExtensions.setSpinnerEntries
+import com.viki.currency.adapters.SpinnerExtensions.setSpinnerItemSelectedListener
+import com.viki.currency.adapters.SpinnerExtensions.setSpinnerValue
+import com.viki.currency.models.CurrencyData
 
 
 object SpinnerBindings {
-
 
     @JvmStatic
     @BindingAdapter("entries")

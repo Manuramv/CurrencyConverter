@@ -1,6 +1,7 @@
 package com.viki.currency.repository
 
-import com.viki.currency.repository.api.ApiInterface
+import com.viki.currency.data.api.ApiInterface
+import com.viki.currency.data.api.RetrofitApiClient
 
 object RepositoryFactory {
     fun createCurrecncyRepository() : CurrencyRepository {

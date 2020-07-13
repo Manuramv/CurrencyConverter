@@ -1,19 +1,15 @@
-package com.viki.currency.cusSpinner
+package com.viki.currency.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
-import com.bumptech.glide.Glide
 
 import com.viki.currency.R
-import com.viki.currency.cusSpinner.imageadapter.generateImgUrl
 import com.viki.currency.databinding.CountryCustomSpinnerBinding
-import com.viki.currency.ui.currency.CurrencyData
-import kotlinx.android.synthetic.main.country_custom_spinner.view.*
+import com.viki.currency.models.CurrencyData
 
 //adapter to show the currency spinner
 class CurrencySpinnerAdapter(context: Context, resource: Int, private val values: List<CurrencyData>) :

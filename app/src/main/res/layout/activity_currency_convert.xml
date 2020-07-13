@@ -6,7 +6,7 @@
             name="viewmodel"
             type="com.viki.currency.ui.currency.CurrencyConvertViewModel" />
 
-        <import type="com.viki.currency.edittxt.TxtBindingUtil"/>
+        <import type="com.viki.currency.adapters.TxtBindingUtil"/>
 
 
     </data>

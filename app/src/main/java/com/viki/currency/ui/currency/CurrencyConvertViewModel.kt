@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonElement
+import com.viki.currency.models.CurrencyData
 import com.viki.currency.repository.CurrencyRepository
 import com.viki.currency.utils.VikiConstants.Companion.API_REFETCH_INTERVAL
 import com.viki.currency.utils.VikiDateUtils
@@ -51,7 +52,7 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
 
     }
 
-//call this API and set the data to dropdown
+//call this API and set the data to dropdown, Call the API in every 10s asynchronously on background thread
     fun callMeInEvery10s(){
         _isLoading.value = true
         Observable.interval(0,API_REFETCH_INTERVAL, TimeUnit.MILLISECONDS)
@@ -61,6 +62,7 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
             });
     }
 
+    //Call the repository and get the call backs through RX java
     fun fetchApi()  {
         currencyRepository.getLatestCurrencyRate().subscribe({
             parseJson(it)
@@ -78,7 +80,12 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
             curDataFromApi?.clear()
             rateObj.keySet().forEach({
                 Log.d("TAG","key =====" + it+"...value="+rateObj.get(it))
-                curDataFromApi?.add(CurrencyData(it,rateObj.get(it)))
+                curDataFromApi?.add(
+                    CurrencyData(
+                        it,
+                        rateObj.get(it)
+                    )
+                )
             })
             curFromSpnrData.value = curDataFromApi
             curToSpnrData.value = curDataFromApi
@@ -129,6 +136,7 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
         return number.toBigDecimal().setScale(3, RoundingMode.FLOOR).toDouble()
     }
 
+    //Since our api is not returning time format to display- we are doing it ourselves and showing the last api called time
     private fun updateApiFetchTime(){
         apiLastFetchedTime.value = VikiDateUtils.getCurrentTime()
     }
