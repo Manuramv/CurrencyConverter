@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonElement
-import com.google.gson.JsonObject
 import com.viki.currency.repository.CurrencyRepository
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -26,9 +25,12 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
 
     val spinnerFromSelectedPosition : MutableLiveData<Int> // This gets updated once spinner item selection changes
     val spinnerToSelectedPosition : MutableLiveData<Int> // This gets updated once spinner item selection changes
-    var progress = MutableLiveData<Int>()
 
 
+
+    private var _isLoading = MutableLiveData<Boolean>()
+    val isLoading:LiveData<Boolean>
+    get() = _isLoading
 
     private var _errorLiveData= MutableLiveData<String>()
     val errorLiveData: LiveData<String>
@@ -45,22 +47,13 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
         curToSpnrData  = MutableLiveData<MutableList<CurrencyData>> ()
         spinnerFromSelectedPosition = MutableLiveData<Int>()
         spinnerToSelectedPosition = MutableLiveData<Int>()
-        //displayConversionRate = MutableLiveData<String>()
-
-
 
     }
 
-    //spinner related items:::;
-    //setting the API data to Spinner
-
-    //mutable livedata to get the spinner selected position
-
-
-
 //call this API and set the data to dropdown
     fun callMeInEvery10s(){
-        progress.value = 0
+        _isLoading.value = true
+    fetchApi()
         Observable.interval(0,10000, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.io())
             .subscribe({
@@ -95,6 +88,7 @@ class CurrencyConvertViewModel(val currencyRepository:CurrencyRepository) :ViewM
             //if the update is needed or not.SO I'm just assigning previously selected value again to spinners
             spinnerFromSelectedPosition.value = spinnerFromSelectedPosition.value
             spinnerToSelectedPosition.value = spinnerToSelectedPosition.value
+            _isLoading.value = false
         } catch (e:Exception){
             _errorLiveData.value = e.toString()
             Log.d("TAG","Exception while parsing api response" + e)

@@ -6,6 +6,6 @@ import io.reactivex.rxjava3.core.Flowable
 import retrofit2.http.GET
 
 interface ApiInterface {
-    @GET("lates")
+    @GET("latest")
     fun getLatestRate(): Flowable<JsonElement>
 }

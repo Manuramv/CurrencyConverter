@@ -2,6 +2,7 @@ package com.viki.currency.ui.currency
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -72,6 +73,13 @@ class CurrencyConvertActivity : AppCompatActivity() {
 
         currencyConvertViewModel.errorLiveData.observe(this, Observer { it ->
             VikiSnackBar.showErrorMsg(binding.parentLayout,it)
+        })
+
+        currencyConvertViewModel.isLoading.observe(this, Observer { it ->
+            if(!it){
+                binding.progressBar.visibility = View.INVISIBLE
+                binding.convertLayout.visibility = View.VISIBLE
+            }
         })
 
 
