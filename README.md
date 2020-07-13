@@ -1,7 +1,13 @@
 # CurrencyConverter
 This app helps to convert one form of currency into another form of currency based on the current exchange rate.
 This app faciliates easy conversion of currencies and will be accurate as it updates the exchange rate every 10 seconds.
+
+
 ![Currency App](https://user-images.githubusercontent.com/31012185/87347925-896af880-c586-11ea-81a1-feb7823e192d.gif)
+
+![Error Cases](https://user-images.githubusercontent.com/31012185/87348303-157d2000-c587-11ea-920e-0962f1eb0f3b.gif)
+      Error Cases
+
 
 # Built With
   Kotlin
