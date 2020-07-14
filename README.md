@@ -6,7 +6,8 @@ This app faciliates easy conversion of currencies and will be accurate as it upd
 - when the user types number in the `from` field or `changing either of the dropdown` will resulted in updating the currency calculation and Unit price info on top of the section. plese refer the #fig1.
 - The Api(https://api.exchangeratesapi.io/latest) which we used to fetch the currency value is returning the currency value based on `EUR` by default. But to give a better experience I've made some calculation and giving the proper conversion between the other currencies.
 - The Api(https://api.exchangeratesapi.io/latest) is not returning the last fetched time.So I'm calculating this time locally and updating to the user.
-- Currency data refreshing every 15s. (RXjava interval method and API call peforming in the background and upon the success call posting the value back to teh main thread.)
+- Currency data refreshing every 15s. (RXjava interval method and API calling peforming in the background and upon the success call posting the value back to the main thread.)
+- Screen Orientation supportted.
 
 
 ![Currency App](https://user-images.githubusercontent.com/31012185/87347925-896af880-c586-11ea-81a1-feb7823e192d.gif)
@@ -20,8 +21,10 @@ This app faciliates easy conversion of currencies and will be accurate as it upd
   Kotlin
 
 # Architectural Pattern
-Used MVVM as the code can be easily reused and binding makes UI updates easier to handle. 
-This architecture makes the code more modular so maintainability of code in future will be more easy.
+- Used MVVM as the code can be easily reused and binding makes UI updates easier to handle. 
+- This architecture makes the code more modular so maintainability of code in future will be more easy
+- `LiveData` - **LiveData** to update the UI automatically when the data updates. We Used LiveData extensively to communicate between view and viewmodel. Whenever the API call is success or currecny conversion is success it will update the UI automatically according to our design.
+
 
 
 #  Data Binding & 2 Way data Binding
@@ -47,5 +50,6 @@ Android 19(4.4)
 # Further Enhancements(Improvements that could be done to this App)
 - Since this app has single screen I din't add the base classes. In future if this app is developed with multiple features we can implement this.
 - Currently there is a fluctuation in the UI when the keyboard is disappear/dismissing after pushing the views up. `android:windowSoftInputMode=adjustResize|stateAlwaysHidden` causing the issue. I didn't pay much attention to resolve this at the moment.
+- We can use `Coroutines` and remove the RxJava. 
 
 
