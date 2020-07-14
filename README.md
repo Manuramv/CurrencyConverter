@@ -36,7 +36,7 @@ Android 19(4.4)
 
 # Further Enhancements(Improvements that could be done to this App)
 - Since this app has single screen I din't add the base classes. In future if this app is developed with multiple features we can implement this.
-- Currently there is a jerk in the UI especially when the keyboard disappear after pushing the views up. ' android:windowSoftInputMode="adjustResize|stateAlwaysHidden" ' causing the issue. I didn't pay much attention to this at the moment.
+- Currently there is a fluctuation in the UI when the keyboard is disappear/dismissing after pushing the views up. * android:windowSoftInputMode=adjustResize|stateAlwaysHidden * causing the issue. I didn't pay much attention to resolve this at the moment.
 
 
 
