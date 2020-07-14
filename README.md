@@ -2,6 +2,12 @@
 This app helps to convert one form of currency into another form of currency based on the current exchange rate.
 This app faciliates easy conversion of currencies and will be accurate as it updates the exchange rate every 10 seconds.
 
+#### Breif Description about app
+- when the user types number in the `from` field or `changing either of the dropdown` will resulted in updating the currency calculation and Unit price info on top of the section. plese refer the #fig1.
+- The Api(https://api.exchangeratesapi.io/latest) which we used to fetch the currency value is returning the currency value based on `EUR` by default. But to give a better experience I've made some calculation and giving the proper conversion between the other currencies.
+- The Api(https://api.exchangeratesapi.io/latest) is not returning the last fetched time.So I'm calculating this time locally and updating to the user.
+- Currency data refreshing every 15s. (RXjava interval method and API call peforming in the background and upon the success call posting the value back to teh main thread.)
+
 
 ![Currency App](https://user-images.githubusercontent.com/31012185/87347925-896af880-c586-11ea-81a1-feb7823e192d.gif)
 *Fig. 1: Demonstrating App*
