@@ -24,9 +24,9 @@ This architecture makes the code more modular so maintainability of code in futu
 - `Binding Adapters` and `Inverse Binding Adapters` used wherever it's possible, especially in setting the `double' type value to edittext. I'm happy that I got very good understanding about this after the completion of this project. 
     
 # Other Important Libraries Used:
-    - `Retrofit` - For networking calls
-    - `RxJava` - Used to manage Asynchronous operations also to communicate between repository and view model.
-    - `Glide` - To Render the Image.
+- `Retrofit` - For networking calls
+- `RxJava` - Used to manage Asynchronous operations also to communicate between repository and view model.
+- `Glide` - To Render the Image.
  # Packages in the App:
     - Adapters- Binding adapters and inverse binding adapters, Spinner Adapter.
     - Data - Retrofit API related class and repository classes under sub repositroy project.
