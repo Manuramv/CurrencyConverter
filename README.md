@@ -4,9 +4,10 @@ This app faciliates easy conversion of currencies and will be accurate as it upd
 
 
 ![Currency App](https://user-images.githubusercontent.com/31012185/87347925-896af880-c586-11ea-81a1-feb7823e192d.gif)
+*Fig. 1: Demonstrating App*
 
 ![Error Cases](https://user-images.githubusercontent.com/31012185/87348303-157d2000-c587-11ea-920e-0962f1eb0f3b.gif)
-      Error Cases
+*Fig. 2: Demonstrating Error Cases*
 
 
 # Built With
